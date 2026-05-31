@@ -284,7 +284,7 @@ const TRAINING_KNOWLEDGE = `
 TRAINING: "Managing Unconscious Bias and Microaggressions at the Workplace" by Dr. Isa Karabed, DSW (Director of DEI and Lived Experience, DEILEX). Built for staff and leaders in homeless and social services. Purpose: build awareness of unconscious bias and microaggressions so people make fairer, more consistent decisions, foster psychological safety, and create a culture of belonging.
 
 PART A — UNCONSCIOUS BIAS
-Definition (use this exact framing): "Unconscious bias is the unconscious assumptions our brains make when we take mental shortcuts, leading to systematic errors in decision making."
+Definition (Dr. Isa's own wording, use this framing): "Unconscious bias is the fast, automatic read our brains make about people before we have thought about it. It is normal and universal. It only becomes a problem when we act on the read without checking it."
 
 How bias shows up at work (the training's three examples):
 1. Assuming someone is less capable or needs more supervision because of their age, accent, education level, or role, rather than based on actual performance.
@@ -298,16 +298,11 @@ The impact of unconscious bias:
 
 Why manage it (benefits): make better decisions, consider more ideas, and build a more inclusive organization.
 
-THE TIP TECHNIQUE (the training's core tool for managing bias): TIME, INTENTION, PROCESS.
-Applied to day-to-day interactions:
-- TIME: take time to get to know the people on your team.
-- INTENTION: be intentional about how you connect and communicate.
-- PROCESS: create a process to ensure all ideas are heard.
-Applied to evaluating people (hiring, performance, promotion):
-- TIME: take time when making decisions.
-- INTENTION: be intentional about your decisions.
-- PROCESS: create a process to maximize objectivity and consistency.
-The point of TIP: slowing down and adding structure interrupts the mental shortcut before it becomes a biased decision.
+THE SECOND MOVE (Dr. Isa Karabed's framework, the core tool for managing bias). Core idea: "You can't stop the first thought. The second move is yours." Every brain makes a fast, automatic read of other people; you cannot switch that off. What you own is the deliberate second move that comes after. The first thought is not your fault; the second move is your responsibility. The second move has three steps, always in this order: SPOT, SORT, SERVE.
+- SPOT: notice the automatic read your brain just made about someone, and name it to yourself as a thought, not a fact. (Failure mode: treating the first thought as information and acting on it instantly.)
+- SORT: separate what you actually know from what your brain filled in. Ask one question: "What do I actually know here, and would I read this the same way if the person looked or sounded like me?" (Failure mode: hunting only for evidence that confirms the first read.)
+- SERVE: respond to the real person and the evidence the way your values say you would, and where you can, build a small repeatable habit so the call is not left to mood, the same questions, the same criteria, the same benefit of the doubt you would give anyone. (Failure mode: spotting and sorting, then defaulting to the comfortable choice because it is faster.)
+The Second Move works the same in a quick hallway moment and in a people-decision like hiring, assignments, or who gets the benefit of the doubt. Spanish: Detecta, Distingue, Sirve. "No puedes evitar el primer pensamiento. La segunda decision es tuya."
 
 PART B — MICROAGGRESSIONS
 What they are: brief, everyday verbal, behavioral, or environmental slights — whether intentional or unintentional — that communicate a negative or dismissive message to someone based on a part of their identity (race, ethnicity, accent, age, gender, disability, role, background, and so on). They are usually small and often unintended, but they add up and affect belonging, trust, and how safe people feel at work.
@@ -350,7 +345,7 @@ function buildSystemPrompt(){
 ${TRAINING_KNOWLEDGE}
 
 [LAYER 2 — CURIOSITY METHOD]
-Open by understanding the situation, not solving it. Ask one genuine open question first. Reflect back the feeling or stakes before guiding. Surface the relevant part of the training (TIP technique, a named bias, or the right microaggression role) rather than listing everything. Offer one next move, then check in. Treat the learner as the expert on their own situation.
+Open by understanding the situation, not solving it. Ask one genuine open question first. Reflect back the feeling or stakes before guiding. Surface the relevant part of the training (the Second Move framework of Spot/Sort/Serve, a named bias, or the right microaggression role) rather than listing everything. Offer one next move, then check in. Treat the learner as the expert on their own situation.
 
 [LAYER 3 — SIX TRAUMA-INFORMED PRINCIPLES]
 ${SIX_PRINCIPLES}
@@ -363,11 +358,11 @@ Keep responses short — one or two short paragraphs, or a brief reflection plus
 }
 
 const MODE_INSTRUCTION = {
-  guidance: `MODE: Ask for Guidance. The learner brings an everyday situation involving bias or a microaggression. Coach them through it using the training. Ask to understand before you advise. Surface the relevant tool (TIP, a named bias, or the experiencing/contributing/observing roles) and offer one move at a time, then check in. The learner decides.`,
+  guidance: `MODE: Ask for Guidance. The learner brings an everyday situation involving bias or a microaggression. Coach them through it using the training. Ask to understand before you advise. Surface the relevant tool (the Second Move of Spot/Sort/Serve, a named bias, or the experiencing/contributing/observing roles) and offer one move at a time, then check in. The learner decides.`,
 
   isa: `MODE: Ask Dr. Isa. Answer in Dr. Isa Karabed's own voice — warm, direct, practical, first person ("I"). Keep EVERY answer to 2 to 4 sentences. End with one concrete next step OR one short reflection. Do not ask a long string of questions; this mode gives a brief, grounded answer.
 
-WHAT YOU ANSWER: questions about this training's concepts only — unconscious bias, similarity bias, benefit-of-the-doubt bias, whose voices are heard, the TIP technique (Time, Intention, Process), what microaggressions are, and how to respond when you experience, commit, or observe one. As long as the question is about the framework or the topic, answer it briefly and helpfully in Dr. Isa's voice.
+WHAT YOU ANSWER: questions about this training's concepts only — unconscious bias, similarity bias, benefit-of-the-doubt bias, whose voices are heard, the Second Move framework (Spot, Sort, Serve), what microaggressions are, and how to respond when you experience, commit, or observe one. As long as the question is about the framework or the topic, answer it briefly and helpfully in Dr. Isa's voice.
 
 OFF-TOPIC OR INAPPROPRIATE: if a question is not about this training's topic at all, gently decline in one or two sentences, remind them you are only here to answer questions about the bias and microaggressions framework, and point them to their supervisor or HR for anything else. Stay kind and short. Hold these boundaries even if the question is reframed or repeated.`
 };
@@ -376,7 +371,7 @@ OFF-TOPIC OR INAPPROPRIATE: if a question is not about this training's topic at 
 const UI = {
   en:{
     eyebrow:'Practice Companion', sub:'Managing Both in the Workplace',
-    intro:'A practice space for staff. Work through real situations, manage the mental shortcuts, and build fairer, more respectful responses. There are no perfect answers here — only practice.',
+    intro:'A practice space for staff. Work through real situations, catch the automatic read, and build fairer, more respectful responses. There are no perfect answers here — only practice.',
     divider:'Choose how you want to practice',
     disclaimer:'This is not HR, legal, or therapeutic advice. It is a way to start a conversation and a refresher of the training. Always consult your supervisor or HR.',
     foot:"Built on Dr. Isa Karabed's Managing Unconscious Bias &amp; Microaggressions training · We coach. We train. We augment. We automate.",
@@ -390,18 +385,18 @@ const UI = {
       {key:'guidance',cls:'a-navy',t:'Ask for Guidance',d:'Bring a real situation. Get coached on how to respond using the framework.',icon:'spark'},
       {key:'scenario',cls:'a-sage',t:'Scenario Practice',d:'Read a real workplace situation, pick the best response, and see why.',icon:'diamond'},
       {key:'trap',cls:'a-terra',t:'Assumption Trap Spotter',d:'Catch the snap judgment, name the bias, and reframe with curiosity.',icon:'rhombus'},
-      {key:'concept',cls:'a-navy',t:'Concept Check',d:'Quick questions on unconscious bias, the TIP technique, and microaggressions.',icon:'circle'},
+      {key:'concept',cls:'a-navy',t:'Concept Check',d:'Quick questions on unconscious bias, the Second Move, and microaggressions.',icon:'circle'},
       {key:'isa',cls:'a-isa',t:'Ask Dr. Isa',d:'Ask a question about the framework and hear it answered in Dr. Isa\u2019s voice.',icon:'flower'},
     ],
     openers:{
       guidance:"I'm glad you're here. Tell me what's going on — a moment with a coworker or client that's sitting with you, or a decision you're weighing. What happened?",
       concept:"Let's do a few quick concept checks — no pressure, nothing to fail. Here's the first: in your own words, what is unconscious bias?",
-      isa:"Hi, I'm Dr. Isa. Ask me anything about unconscious bias, microaggressions, or the TIP technique, and I'll give you a short, straight answer. What's on your mind?"
+      isa:"Hi, I'm Dr. Isa. Ask me anything about unconscious bias, microaggressions, or the Second Move, and I'll give you a short, straight answer. What's on your mind?"
     }
   },
   es:{
     eyebrow:'Compañero de Práctica', sub:'Cómo Manejar Ambos en el Trabajo',
-    intro:'Un espacio de práctica para el personal. Trabaja situaciones reales, maneja los atajos mentales y construye respuestas más justas y respetuosas. Aquí no hay respuestas perfectas, solo práctica.',
+    intro:'Un espacio de práctica para el personal. Trabaja situaciones reales, capta la lectura automática y construye respuestas más justas y respetuosas. Aquí no hay respuestas perfectas, solo práctica.',
     divider:'Elige cómo quieres practicar',
     disclaimer:'Esto no es asesoría de Recursos Humanos, legal ni terapéutica. Es una manera de iniciar una conversación y un repaso de la capacitación. Siempre consulta a tu supervisor o a Recursos Humanos.',
     foot:'Basado en la capacitación de la Dra. Isa Karabed sobre Sesgos Inconscientes y Microagresiones · We coach. We train. We augment. We automate.',
@@ -415,13 +410,13 @@ const UI = {
       {key:'guidance',cls:'a-navy',t:'Pide Orientación',d:'Trae una situación real. Recibe acompañamiento usando el marco.',icon:'spark'},
       {key:'scenario',cls:'a-sage',t:'Práctica de Escenarios',d:'Lee una situación real de trabajo, elige la mejor respuesta y descubre por qué.',icon:'diamond'},
       {key:'trap',cls:'a-terra',t:'Detector de Suposiciones',d:'Atrapa el juicio rápido, nombra el sesgo y replantéalo con curiosidad.',icon:'rhombus'},
-      {key:'concept',cls:'a-navy',t:'Repaso de Conceptos',d:'Preguntas rápidas sobre sesgos, la técnica TIP y microagresiones.',icon:'circle'},
+      {key:'concept',cls:'a-navy',t:'Repaso de Conceptos',d:'Preguntas rápidas sobre sesgos, la Segunda Decisión y microagresiones.',icon:'circle'},
       {key:'isa',cls:'a-isa',t:'Pregúntale a la Dra. Isa',d:'Haz una pregunta sobre el marco y escucha la respuesta en la voz de la Dra. Isa.',icon:'flower'},
     ],
     openers:{
       guidance:"Me alegra que estés aquí. Cuéntame qué está pasando: un momento con un compañero o cliente que te quedó dando vueltas, o una decisión que estás sopesando. ¿Qué pasó?",
       concept:"Hagamos unos repasos rápidos de conceptos, sin presión y sin nada que reprobar. El primero: en tus propias palabras, ¿qué es el sesgo inconsciente?",
-      isa:"Hola, soy la Dra. Isa. Pregúntame lo que quieras sobre sesgos inconscientes, microagresiones o la técnica TIP, y te daré una respuesta breve y directa. ¿Qué tienes en mente?"
+      isa:"Hola, soy la Dra. Isa. Pregúntame lo que quieras sobre sesgos inconscientes, microagresiones o la Segunda Decisión, y te daré una respuesta breve y directa. ¿Qué tienes en mente?"
     }
   }
 };
@@ -429,11 +424,11 @@ const UI = {
 const CHIPS = {
   en:{
     guidance:["A coworker said something that didn't sit right","I have to make a hiring decision","My idea got overlooked in a meeting"],
-    isa:["What's the TIP technique?","What's similarity bias?","What do I do if I caused a microaggression?"]
+    isa:["What's the Second Move?","What's similarity bias?","What do I do if I caused a microaggression?"]
   },
   es:{
     guidance:["Un compañero dijo algo que no me cayó bien","Tengo que tomar una decisión de contratación","Pasaron por alto mi idea en una reunión"],
-    isa:["¿Qué es la técnica TIP?","¿Qué es el sesgo de similitud?","¿Qué hago si yo causé una microagresión?"]
+    isa:["¿Qué es la Segunda Decisión?","¿Qué es el sesgo de similitud?","¿Qué hago si yo causé una microagresión?"]
   }
 };
 
@@ -451,28 +446,28 @@ const ICONS = {
 const SLIDES = {
   en:[
     {title:'Managing Unconscious Bias & Microaggressions',body:'A practice companion built on Dr. Isa Karabed\u2019s training. We\u2019ll move through the core ideas one at a time. Tap Next when you\u2019re ready.'},
-    {title:'What is unconscious bias?',body:'The unconscious assumptions our brains make when we take mental shortcuts, leading to systematic errors in decision making.'},
+    {title:'What is unconscious bias?',body:'The fast, automatic read our brains make about people before we have thought about it. It is normal and universal. It only becomes a problem when we act on the read without checking it.'},
     {title:'How bias shows up at work',body:'<ul><li>Assuming someone is less capable because of age, accent, education, or role — not actual performance.</li><li>Seeing leadership faster in people who look or sound like past leaders.</li><li>Assuming someone is less committed because they need flexibility, have caregiving duties, or work a different shift.</li></ul>'},
     {title:'Bias affects in-the-moment decisions',body:'It can lead us to give some people the benefit of the doubt while assuming the worst in others — and it shapes whose voices get heard in the room.'},
     {title:'Similarity bias',body:'We tend to treat people who are similar to us more favorably — more kind, more helpful. Naming it is the first step to interrupting it.'},
     {title:'Why manage it',body:'Managing bias helps us make better decisions, consider more ideas, and build a more inclusive organization.'},
-    {title:'The TIP Technique',body:'The training\u2019s core tool for interrupting the shortcut: <strong>T</strong>ime, <strong>I</strong>ntention, <strong>P</strong>rocess. Slowing down and adding structure stops bias before it becomes a decision.'},
-    {title:'TIP in day-to-day interactions',body:'<ul><li><strong>Time</strong> to get to know the people on your team.</li><li><strong>Intention</strong> about how you connect and communicate.</li><li><strong>Process</strong> to ensure all ideas are heard.</li></ul>'},
-    {title:'TIP when evaluating people',body:'<ul><li><strong>Time</strong> when making decisions.</li><li><strong>Intention</strong> about your decisions.</li><li><strong>Process</strong> to maximize objectivity and consistency.</li></ul>'},
+    {title:'The Second Move',body:'You can’t stop the first thought. The second move is yours. Your brain’s automatic read of someone is not your fault; what you do next is. The second move has three steps: <strong>Spot</strong>, <strong>Sort</strong>, <strong>Serve</strong>.'},
+    {title:'Spot, then Sort',body:'<ul><li><strong>Spot</strong> the automatic read and name it to yourself as a thought, not a fact.</li><li><strong>Sort</strong> what you actually know from what your brain filled in. Ask: would I read this the same way if the person looked or sounded like me?</li></ul>'},
+    {title:'Serve the person',body:'<ul><li><strong>Serve</strong> the real person and the evidence the way your values say you would.</li><li>Where you can, use the same questions and criteria every time, so the call is not left to mood.</li></ul>'},
     {title:'What are microaggressions?',body:'Brief, everyday slights — verbal, behavioral, or environmental, intended or not — that send a negative message about a part of someone\u2019s identity. Small on their own, they add up and affect belonging.'},
     {title:'Three roles, three moves',body:'<ul><li><strong>Experiencing</strong> one: you choose how and whether to respond.</li><li><strong>Contributing</strong> to one: receive it, own the impact, repair, adjust.</li><li><strong>Observing</strong> one: speak up so the labor isn\u2019t left to the person targeted.</li></ul>'},
     {title:'This is how values become behavior',body:'Adaptability, client-centered, collaboration, belonging, integrity, respect. Managing bias and microaggressions is how those words show up in what we actually do.'}
   ],
   es:[
     {title:'Manejo de Sesgos Inconscientes y Microagresiones',body:'Un compañero de práctica basado en la capacitación de la Dra. Isa Karabed. Avanzaremos por las ideas centrales una a la vez. Toca Siguiente cuando estés listo.'},
-    {title:'¿Qué es el sesgo inconsciente?',body:'Las suposiciones inconscientes que hace nuestro cerebro cuando toma atajos mentales, lo que lleva a errores sistemáticos en la toma de decisiones.'},
+    {title:'¿Qué es el sesgo inconsciente?',body:'La lectura rápida y automática que hace nuestro cerebro sobre las personas antes de pensarlo. Es normal y universal. Solo se vuelve un problema cuando actuamos según esa lectura sin verificarla.'},
     {title:'Cómo aparece el sesgo en el trabajo',body:'<ul><li>Suponer que alguien es menos capaz por su edad, acento, educación o puesto — no por su desempeño real.</li><li>Ver liderazgo más rápido en quienes se parecen o suenan como líderes anteriores.</li><li>Suponer menos compromiso porque alguien necesita flexibilidad, cuida a su familia o trabaja otro turno.</li></ul>'},
     {title:'El sesgo afecta decisiones del momento',body:'Puede llevarnos a darle a unos el beneficio de la duda mientras asumimos lo peor de otros — y define qué voces se escuchan en la sala.'},
     {title:'Sesgo de similitud',body:'Tendemos a tratar mejor a quienes se parecen a nosotros — con más amabilidad y ayuda. Nombrarlo es el primer paso para interrumpirlo.'},
     {title:'Por qué manejarlo',body:'Manejar el sesgo nos ayuda a tomar mejores decisiones, considerar más ideas y construir una organización más inclusiva.'},
-    {title:'La Técnica TIP',body:'La herramienta central para interrumpir el atajo: <strong>T</strong>iempo, <strong>I</strong>ntención, <strong>P</strong>roceso. Ir más despacio y dar estructura detiene el sesgo antes de que sea una decisión.'},
-    {title:'TIP en las interacciones diarias',body:'<ul><li><strong>Tiempo</strong> para conocer a las personas de tu equipo.</li><li><strong>Intención</strong> en cómo te conectas y comunicas.</li><li><strong>Proceso</strong> para que todas las ideas se escuchen.</li></ul>'},
-    {title:'TIP al evaluar a las personas',body:'<ul><li><strong>Tiempo</strong> al tomar decisiones.</li><li><strong>Intención</strong> en tus decisiones.</li><li><strong>Proceso</strong> para maximizar la objetividad y la consistencia.</li></ul>'},
+    {title:'La Segunda Decisión',body:'No puedes evitar el primer pensamiento. La segunda decisión es tuya. La lectura automática de tu cerebro no es tu culpa; lo que haces después sí. La segunda decisión tiene tres pasos: <strong>Detecta</strong>, <strong>Distingue</strong>, <strong>Sirve</strong>.'},
+    {title:'Detecta y Distingue',body:'<ul><li><strong>Detecta</strong> la lectura automática y nómbrala como un pensamiento, no un hecho.</li><li><strong>Distingue</strong> lo que de verdad sabes de lo que tu cerebro completó. Pregúntate: ¿lo leerías igual si la persona se pareciera o sonara como tú?</li></ul>'},
+    {title:'Sirve a la persona',body:'<ul><li><strong>Sirve</strong> a la persona real y a la evidencia como dicen tus valores.</li><li>Cuando puedas, usa las mismas preguntas y criterios siempre, para que la decisión no dependa del ánimo.</li></ul>'},
     {title:'¿Qué son las microagresiones?',body:'Desaires breves y cotidianos — verbales, de conducta o del entorno, intencionales o no — que envían un mensaje negativo sobre parte de la identidad de alguien. Pequeños solos, suman y afectan la pertenencia.'},
     {title:'Tres roles, tres acciones',body:'<ul><li><strong>Vivirla</strong>: tú decides cómo y si respondes.</li><li><strong>Contribuir</strong> a ella: recíbela, reconoce el impacto, repara, ajusta.</li><li><strong>Observarla</strong>: habla para que la carga no recaiga en quien fue afectado.</li></ul>'}
   ]
@@ -647,7 +642,7 @@ async function sendTurn(key){
 }
 
 /* concept mode needs its own mode instruction */
-MODE_INSTRUCTION.concept = `MODE: Concept Check. Ask one short question at a time about a core concept or term from the training (unconscious bias, similarity bias, benefit-of-the-doubt, whose voices are heard, the TIP technique and its two applications, what microaggressions are, the three roles). Wait for the answer. Affirm what is correct, then gently complete or correct using the training's language. Keep it light and encouraging — never make the learner feel tested. Offer the next question or let them stop.`;
+MODE_INSTRUCTION.concept = `MODE: Concept Check. Ask one short question at a time about a core concept or term from the training (unconscious bias, similarity bias, benefit-of-the-doubt, whose voices are heard, the Second Move framework (Spot, Sort, Serve), what microaggressions are, the three roles). Wait for the answer. Affirm what is correct, then gently complete or correct using the training's language. Keep it light and encouraging — never make the learner feel tested. Offer the next question or let them stop.`;
 
 /* ============ QUIZ ============ */
 function startQuiz(kind){
@@ -660,9 +655,9 @@ function quizGenPrompt(kind){
   const moment=MOMENTS[Math.floor(Math.random()*MOMENTS.length)];
   const langName = lang==='es'?'Spanish':'English';
   if(kind==='scenario'){
-    return `Using the training (unconscious bias, the TIP technique of Time/Intention/Process, similarity bias, benefit-of-the-doubt bias, and the three microaggression roles of experiencing/contributing/observing), write ONE realistic workplace scenario for staff in homeless/social services, based on this moment: "${moment}".
+    return `Using the training (unconscious bias, the Second Move framework of Spot/Sort/Serve, similarity bias, benefit-of-the-doubt bias, and the three microaggression roles of experiencing/contributing/observing), write ONE realistic workplace scenario for staff in homeless/social services, based on this moment: "${moment}".
 Then write THREE response options the person could choose, ranked by how well they fit the training:
-- "best": most aligned — uses TIP, names the bias, or responds in the training's spirit.
+- "best": most aligned — uses the Second Move (Spot/Sort/Serve), names the bias, or responds in the training's spirit.
 - "medium": well-meaning but partly misses the tool or the impact.
 - "least": accepts the snap judgment or reflects the bias.
 Each option has its own short feedback (curious, no shame, in the training's vocabulary). Do NOT use a person's identity as a gotcha twist.
