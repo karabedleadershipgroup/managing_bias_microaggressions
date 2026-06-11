@@ -93,6 +93,26 @@
     padding:5px 13px;border-radius:999px;cursor:pointer;letter-spacing:.04em;
   }
   .lang-toggle button.on{background:var(--gold);color:#1b2a4a}
+  /* gate + terms */
+  .full{min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:48px 22px;
+    background:radial-gradient(1100px 600px at 80% -5%, rgba(201,168,76,.16), transparent 60%),radial-gradient(900px 600px at -10% 110%, rgba(141,169,140,.12), transparent 60%),linear-gradient(180deg,#1A2044 0%, #181D3E 55%, #121634 100%)}
+  .full.on{display:flex}
+  .full-logo{height:52px;margin-bottom:26px}
+  .full-card{background:var(--cream);border-radius:22px;max-width:560px;width:100%;padding:34px 34px 30px;box-shadow:0 30px 70px -28px rgba(0,0,0,.55)}
+  .full-eyebrow{color:var(--gold);font-size:12px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;text-align:center;margin-bottom:8px}
+  .full-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy);text-align:center;line-height:1.12}
+  .full-sub{color:#5c6470;font-size:15px;text-align:center;margin-top:10px;line-height:1.55}
+  .gate-input{width:100%;margin-top:22px;font-family:inherit;font-size:17px;text-align:center;letter-spacing:.04em;color:var(--ink);border:1.5px solid #D9D3C7;border-radius:14px;padding:15px 16px;background:#fff;outline:none}
+  .gate-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+  .full-btn{width:100%;margin-top:16px;background:linear-gradient(150deg,#D8B85A,#C9A84C);color:#1b2a4a;border:none;font-family:inherit;font-weight:600;font-size:16px;padding:15px;border-radius:14px;cursor:pointer;box-shadow:0 12px 24px -12px rgba(201,168,76,.8)}
+  .full-btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+  .gate-err{color:#b0452e;font-size:14px;text-align:center;margin-top:12px;min-height:18px}
+  .terms-box{margin-top:18px;max-height:34vh;overflow-y:auto;background:#fff;border:1px solid #E4DCC9;border-radius:12px;padding:16px 18px;color:#3a4250;font-size:13.5px;line-height:1.6}
+  .terms-box h4{font-family:'Playfair Display',serif;color:var(--navy);font-size:15px;margin:14px 0 4px}
+  .terms-box h4:first-child{margin-top:0}
+  .terms-box p{margin:0 0 8px}
+  .terms-check{display:flex;align-items:flex-start;gap:10px;margin-top:16px;cursor:pointer;color:#3a4250;font-size:14px;line-height:1.45}
+  .terms-check input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--gold)}
 
   /* ===== SCREEN (chat / slide / quiz) ===== */
   .screen{display:none;flex-direction:column;height:100vh;background:var(--paper)}
@@ -189,6 +209,39 @@
 <body>
 <div id="app">
 
+  <!-- ACCESS GATE -->
+  <div class="full" id="gate">
+    <div class="lang-toggle">
+      <button id="g-lang-en" class="on" onclick="setLang('en')">EN</button>
+      <button id="g-lang-es" onclick="setLang('es')">ES</button>
+    </div>
+    <img class="full-logo" id="gate-logo" alt="Karabed Leadership Group">
+    <div class="full-card">
+      <div class="full-eyebrow" id="gate-eyebrow">Practice Companion</div>
+      <div class="full-title" id="gate-title">Bias &amp; Microaggressions</div>
+      <div class="full-sub" id="gate-sub"></div>
+      <input class="gate-input" id="gate-input" type="password" autocomplete="off" />
+      <button class="full-btn" id="gate-btn" onclick="checkGate()"></button>
+      <div class="gate-err" id="gate-err"></div>
+    </div>
+  </div>
+
+  <!-- TERMS OF USE -->
+  <div class="full" id="terms">
+    <div class="lang-toggle">
+      <button id="t-lang-en" class="on" onclick="setLang('en')">EN</button>
+      <button id="t-lang-es" onclick="setLang('es')">ES</button>
+    </div>
+    <img class="full-logo" id="terms-logo" alt="Karabed Leadership Group">
+    <div class="full-card">
+      <div class="full-eyebrow" id="terms-eyebrow">Terms of Use</div>
+      <div class="full-title" id="terms-title"></div>
+      <div class="terms-box" id="terms-box"></div>
+      <label class="terms-check"><input type="checkbox" id="terms-agree" onchange="document.getElementById('terms-btn').disabled=!this.checked"><span id="terms-agree-label"></span></label>
+      <button class="full-btn" id="terms-btn" onclick="acceptTerms()" disabled></button>
+    </div>
+  </div>
+
   <!-- PICKER -->
   <div id="picker">
     <div class="lang-toggle">
@@ -270,6 +323,8 @@ document.getElementById('picker-logo').src=LOGO;
 document.getElementById('chat-logo').src=LOGO;
 document.getElementById('slide-logo').src=LOGO;
 document.getElementById('quiz-logo').src=LOGO;
+document.getElementById('gate-logo').src=LOGO;
+document.getElementById('terms-logo').src=LOGO;
 
 /* ============ STATE ============ */
 let lang='en';
@@ -360,11 +415,21 @@ Keep responses short — one or two short paragraphs, or a brief reflection plus
 const MODE_INSTRUCTION = {
   guidance: `MODE: Ask for Guidance. The learner brings an everyday situation involving bias or a microaggression. Coach them through it using the training. Ask to understand before you advise. Surface the relevant tool (the Second Move of Spot/Sort/Serve, a named bias, or the experiencing/contributing/observing roles) and offer one move at a time, then check in. The learner decides.`,
 
-  isa: `MODE: Ask Dr. Isa. Answer in Dr. Isa Karabed's own voice — warm, direct, practical, first person ("I"). Keep EVERY answer to 2 to 4 sentences. End with one concrete next step OR one short reflection. Do not ask a long string of questions; this mode gives a brief, grounded answer.
+  isa: `MODE: Ask Dr. Isa (narrative support). This is NOT a back-and-forth coaching chat and NOT a quiz. The staff member shares whatever they are carrying or working through, and you respond in Dr. Isa Karabed's own voice, first person ("I"), as one short, warm narrative that gently walks them back into the training.
 
-WHAT YOU ANSWER: questions about this training's concepts only — unconscious bias, similarity bias, benefit-of-the-doubt bias, whose voices are heard, the Second Move framework (Spot, Sort, Serve), what microaggressions are, and how to respond when you experience, commit, or observe one. As long as the question is about the framework or the topic, answer it briefly and helpfully in Dr. Isa's voice.
+HOW TO RESPOND:
+- Speak the way Dr. Isa would speak if she were quietly sitting beside them: gentle, grounded, unhurried, supportive. One short flowing paragraph, about three to six sentences. Not a list, not a series of questions.
+- Always anchor what you say in the training itself: the Second Move (Spot, Sort, Serve), a named bias, or the experiencing, contributing, or observing roles for microaggressions. Offer the framework as the thing that can steady them and help them find a next step.
+- Lead with curiosity and possibility rather than conclusions. Offer the training as a lens they can try, never as a verdict.
+- Be trauma-informed and supportive in tone throughout.
 
-OFF-TOPIC OR INAPPROPRIATE: if a question is not about this training's topic at all, gently decline in one or two sentences, remind them you are only here to answer questions about the bias and microaggressions framework, and point them to their supervisor or HR for anything else. Stay kind and short. Hold these boundaries even if the question is reframed or repeated.`
+NEVER:
+- Never assume what happened, how they feel, or what kind of situation this is. Do not fill in any detail they did not give you.
+- Never use reflective-listening or validation phrases such as "that sounds hard," "that sounds difficult," "that must be tough," or "I hear you." Do not name their feelings back to them. Support them through the narrative and the training instead.
+- Never label or diagnose the situation.
+- Do not stack questions. At most one gentle, optional invitation at the end.
+
+If what they share is simply a question about the training, answer it warmly in this same narrative voice, still grounded in the framework.`
 };
 
 /* ============ UI STRINGS ============ */
@@ -374,6 +439,15 @@ const UI = {
     intro:'A practice space for staff. Work through real situations, catch the automatic read, and build fairer, more respectful responses. There are no perfect answers here — only practice.',
     divider:'Choose how you want to practice',
     disclaimer:'This is not HR, legal, or therapeutic advice. It is a way to start a conversation and a refresher of the training. Always consult your supervisor or HR.',
+    gateSub:'Enter your access code to continue.',
+    gatePlaceholder:'Access code',
+    gateBtn:'Enter',
+    gateErr:'That code is not right. Please try again.',
+    termsEyebrow:'Terms of Use',
+    termsTitle:'Before you begin',
+    termsAgree:'I have read and agree to these Terms of Use.',
+    termsBtn:'I agree, continue',
+    termsBody:`<h4>What this is</h4><p>This is a practice and learning companion built on Dr. Isa Karabed's Managing Unconscious Bias and Microaggressions training. It is a product of Karabed Leadership Group (KLG).</p><h4>Not professional advice</h4><p>This tool is not HR, legal, or therapeutic advice. It offers a way to start a conversation and a refresher of the training. Always consult your supervisor or HR for guidance on real situations.</p><h4>Not a reporting tool</h4><p>This companion does not handle reports, complaints, or investigations. If you experience or witness discrimination, harassment, bullying, or retaliation, document what happened and contact your supervisor or HR.</p><h4>AI-generated responses</h4><p>Responses are generated by AI and may be incomplete or imperfect. Use your own judgment and do not rely on this tool as a decision-maker.</p><h4>Privacy</h4><p>Please do not enter names or identifying details about specific staff or clients. Messages are processed by a third-party AI provider to generate responses. Do not share confidential or personal information.</p><h4>Not a crisis service</h4><p>This is not a crisis or emergency service. If you or someone else may be unsafe, contact a trusted person or the appropriate local resource.</p><h4>Ownership</h4><p>The Second Move framework, this companion, and all related materials are the property of Karabed Leadership Group, provided for authorized use only.</p>`,
     foot:"Built on Dr. Isa Karabed's Managing Unconscious Bias &amp; Microaggressions training · We coach. We train. We augment. We automate.",
     back:'All modes', send:'Send', placeholder:'Type your message…',
     hrNote:'Not HR, legal, or therapeutic advice. A way to start a conversation and a refresher of the training. For a real incident of discrimination, harassment, bullying, or retaliation, document it and contact your supervisor or HR.',
@@ -386,12 +460,12 @@ const UI = {
       {key:'scenario',cls:'a-sage',t:'Scenario Practice',d:'Read a real workplace situation, pick the best response, and see why.',icon:'diamond'},
       {key:'trap',cls:'a-terra',t:'Assumption Trap Spotter',d:'Catch the snap judgment, name the bias, and reframe with curiosity.',icon:'rhombus'},
       {key:'concept',cls:'a-navy',t:'Concept Check',d:'Quick questions on unconscious bias, the Second Move, and microaggressions.',icon:'circle'},
-      {key:'isa',cls:'a-isa',t:'Ask Dr. Isa',d:'Ask a question about the framework and hear it answered in Dr. Isa\u2019s voice.',icon:'flower'},
+      {key:'isa',cls:'a-isa',t:'Ask Dr. Isa',d:'Bring whatever you\u2019re carrying and be supported through the training, in Dr. Isa\u2019s voice.',icon:'flower'},
     ],
     openers:{
       guidance:"I'm glad you're here. Tell me what's going on — a moment with a coworker or client that's sitting with you, or a decision you're weighing. What happened?",
       concept:"Let's do a few quick concept checks — no pressure, nothing to fail. Here's the first: in your own words, what is unconscious bias?",
-      isa:"Hi, I'm Dr. Isa. Ask me anything about unconscious bias, microaggressions, or the Second Move, and I'll give you a short, straight answer. What's on your mind?"
+      isa:"Hi, I'm Dr. Isa. This is a quiet place to set down whatever you're carrying from your work. Share what's on your mind, and I'll meet you there and walk with you back into the training. Take your time."
     }
   },
   es:{
@@ -399,6 +473,15 @@ const UI = {
     intro:'Un espacio de práctica para el personal. Trabaja situaciones reales, capta la lectura automática y construye respuestas más justas y respetuosas. Aquí no hay respuestas perfectas, solo práctica.',
     divider:'Elige cómo quieres practicar',
     disclaimer:'Esto no es asesoría de Recursos Humanos, legal ni terapéutica. Es una manera de iniciar una conversación y un repaso de la capacitación. Siempre consulta a tu supervisor o a Recursos Humanos.',
+    gateSub:'Ingresa tu código de acceso para continuar.',
+    gatePlaceholder:'Código de acceso',
+    gateBtn:'Entrar',
+    gateErr:'Ese código no es correcto. Inténtalo de nuevo.',
+    termsEyebrow:'Términos de Uso',
+    termsTitle:'Antes de comenzar',
+    termsAgree:'He leído y acepto estos Términos de Uso.',
+    termsBtn:'Acepto, continuar',
+    termsBody:`<h4>Qué es esto</h4><p>Este es un compañero de práctica y aprendizaje basado en la capacitación de la Dra. Isa Karabed sobre el Manejo de Sesgos Inconscientes y Microagresiones. Es un producto de Karabed Leadership Group (KLG).</p><h4>No es asesoría profesional</h4><p>Esta herramienta no es asesoría de Recursos Humanos, legal ni terapéutica. Ofrece una manera de iniciar una conversación y un repaso de la capacitación. Siempre consulta a tu supervisor o a Recursos Humanos ante situaciones reales.</p><h4>No es una herramienta de reporte</h4><p>Este compañero no maneja reportes, quejas ni investigaciones. Si vives o presencias discriminación, acoso, hostigamiento o represalia, documenta lo que pasó y contacta a tu supervisor o a Recursos Humanos.</p><h4>Respuestas generadas por IA</h4><p>Las respuestas son generadas por inteligencia artificial y pueden ser incompletas o imperfectas. Usa tu propio criterio y no dependas de esta herramienta para tomar decisiones.</p><h4>Privacidad</h4><p>Por favor no ingreses nombres ni datos que identifiquen a personal o clientes específicos. Los mensajes son procesados por un proveedor de IA externo para generar respuestas. No compartas información confidencial o personal.</p><h4>No es un servicio de crisis</h4><p>Este no es un servicio de crisis o emergencia. Si tú u otra persona pudieran estar en peligro, contacta a una persona de confianza o al recurso local apropiado.</p><h4>Propiedad</h4><p>El marco La Segunda Decisión, este compañero y todos los materiales relacionados son propiedad de Karabed Leadership Group, para uso autorizado únicamente.</p>`,
     foot:'Basado en la capacitación de la Dra. Isa Karabed sobre Sesgos Inconscientes y Microagresiones · We coach. We train. We augment. We automate.',
     back:'Modos', send:'Enviar', placeholder:'Escribe tu mensaje…',
     hrNote:'No es asesoría de Recursos Humanos, legal ni terapéutica. Es una manera de iniciar una conversación y un repaso de la capacitación. Ante un incidente real de discriminación, acoso, hostigamiento o represalia, documentálo y contacta a tu supervisor o a Recursos Humanos.',
@@ -411,12 +494,12 @@ const UI = {
       {key:'scenario',cls:'a-sage',t:'Práctica de Escenarios',d:'Lee una situación real de trabajo, elige la mejor respuesta y descubre por qué.',icon:'diamond'},
       {key:'trap',cls:'a-terra',t:'Detector de Suposiciones',d:'Atrapa el juicio rápido, nombra el sesgo y replantéalo con curiosidad.',icon:'rhombus'},
       {key:'concept',cls:'a-navy',t:'Repaso de Conceptos',d:'Preguntas rápidas sobre sesgos, la Segunda Decisión y microagresiones.',icon:'circle'},
-      {key:'isa',cls:'a-isa',t:'Pregúntale a la Dra. Isa',d:'Haz una pregunta sobre el marco y escucha la respuesta en la voz de la Dra. Isa.',icon:'flower'},
+      {key:'isa',cls:'a-isa',t:'Pregúntale a la Dra. Isa',d:'Trae lo que estés llevando y recibe apoyo a través de la capacitación, en la voz de la Dra. Isa.',icon:'flower'},
     ],
     openers:{
       guidance:"Me alegra que estés aquí. Cuéntame qué está pasando: un momento con un compañero o cliente que te quedó dando vueltas, o una decisión que estás sopesando. ¿Qué pasó?",
       concept:"Hagamos unos repasos rápidos de conceptos, sin presión y sin nada que reprobar. El primero: en tus propias palabras, ¿qué es el sesgo inconsciente?",
-      isa:"Hola, soy la Dra. Isa. Pregúntame lo que quieras sobre sesgos inconscientes, microagresiones o la Segunda Decisión, y te daré una respuesta breve y directa. ¿Qué tienes en mente?"
+      isa:"Hola, soy la Dra. Isa. Este es un espacio tranquilo para soltar lo que estés llevando de tu trabajo. Comparte lo que tienes en mente y te acompañaré de regreso a la capacitación. Tómate tu tiempo."
     }
   }
 };
@@ -424,11 +507,11 @@ const UI = {
 const CHIPS = {
   en:{
     guidance:["A coworker said something that didn't sit right","I have to make a hiring decision","My idea got overlooked in a meeting"],
-    isa:["What's the Second Move?","What's similarity bias?","What do I do if I caused a microaggression?"]
+    isa:["Something happened with a coworker and it's staying with me","I think I may have said the wrong thing","I noticed something and didn't know what to do"]
   },
   es:{
     guidance:["Un compañero dijo algo que no me cayó bien","Tengo que tomar una decisión de contratación","Pasaron por alto mi idea en una reunión"],
-    isa:["¿Qué es la Segunda Decisión?","¿Qué es el sesgo de similitud?","¿Qué hago si yo causé una microagresión?"]
+    isa:["Pasó algo con un compañero y no se me quita de la mente","Creo que pude haber dicho algo que no debía","Noté algo y no supe qué hacer"]
   }
 };
 
@@ -515,10 +598,13 @@ function renderPicker(){
 
 function setLang(l){
   lang=l;
-  document.getElementById('lang-en').classList.toggle('on',l==='en');
-  document.getElementById('lang-es').classList.toggle('on',l==='es');
-  renderPicker();
-  // re-render active screens that are language-dependent and stateless
+  [['lang-en','lang-es'],['g-lang-en','g-lang-es'],['t-lang-en','t-lang-es']].forEach(pair=>{
+    const en=document.getElementById(pair[0]), es=document.getElementById(pair[1]);
+    if(en) en.classList.toggle('on',l==='en');
+    if(es) es.classList.toggle('on',l==='es');
+  });
+  renderPicker(); renderGate();
+  if(document.getElementById('terms').classList.contains('on')) renderTerms();
   if(document.getElementById('slide-screen').classList.contains('active')) renderSlide();
 }
 
@@ -531,6 +617,38 @@ function showScreen(id){
   });
 }
 function toPicker(){ mode=null; showScreen('picker'); }
+
+/* ===== GATE + TERMS ===== */
+function showGate(){document.getElementById('gate').classList.add('on');}
+function renderGate(){const u=UI[lang];
+  document.getElementById('gate-eyebrow').textContent=u.eyebrow;
+  document.getElementById('gate-sub').textContent=u.gateSub;
+  document.getElementById('gate-input').placeholder=u.gatePlaceholder;
+  document.getElementById('gate-btn').textContent=u.gateBtn;
+}
+function checkGate(){
+  const v=document.getElementById('gate-input').value;
+  if(v==='KLG2026!'){
+    document.getElementById('gate').classList.remove('on');
+    document.getElementById('gate-err').textContent='';
+    showTerms();
+  } else {
+    document.getElementById('gate-err').textContent=UI[lang].gateErr;
+  }
+}
+function showTerms(){renderTerms();document.getElementById('terms').classList.add('on');}
+function renderTerms(){const u=UI[lang];
+  document.getElementById('terms-eyebrow').textContent=u.termsEyebrow;
+  document.getElementById('terms-title').textContent=u.termsTitle;
+  document.getElementById('terms-box').innerHTML=u.termsBody;
+  document.getElementById('terms-agree-label').textContent=u.termsAgree;
+  document.getElementById('terms-btn').textContent=u.termsBtn;
+}
+function acceptTerms(){
+  document.getElementById('terms').classList.remove('on');
+  document.getElementById('picker').style.display='';
+  showScreen('picker');
+}
 
 function openMode(key){
   mode=key;
@@ -731,7 +849,10 @@ function pickOption(i,btn){
 
 /* ============ INIT ============ */
 renderPicker();
-showScreen('picker');
+renderGate();
+document.getElementById('picker').style.display='none';
+document.getElementById('gate-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkGate();});
+showGate();
 </script>
 </body>
 </html>
